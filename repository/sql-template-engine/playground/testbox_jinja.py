@@ -1,17 +1,15 @@
-from jinja2 import Environment, FileSystemLoader, select_autoescape, meta
-
-#from jinja2 import Template
+from jinja2 import Environment, FileSystemLoader, select_autoescape, meta, Template
 
 env = Environment(
-            #loader=PackageLoader('', 'templates'),
-            loader = FileSystemLoader('/home/dgarcia/dev/python/em_dev_tools/my_project/repository/sql-template-engine/templates'),
-                autoescape=select_autoescape(['html', 'xml'])
+            loader=FileSystemLoader('/home/dgarcia/dev/python/em_dev_tools/repository/sql-template-engine/templates_old'),
+            autoescape=select_autoescape(['html', 'xml'])
                 )
 template = env.get_template('add-verb.html')
-print template.render(verb_id='inlineView')
+print (template.render(verb_id='inlineView'))
 template_source = env.loader.get_source(env, 'add-verb.html')[0]
+print("this is template source", template_source)
 parsed_content = env.parse(template_source)
-print(parsed_content)
+print("the is the parsed content",parsed_content)
 template_vars = meta.find_undeclared_variables(parsed_content)
 print(list(template_vars)[0])
 print(template_vars)

@@ -44,3 +44,5 @@ def test_list_templates_under_path():
                                                  .recreate()
 
     assert sql_environment.list_templates() == ['add-process-descriptor.sql','add-verb.sql']
+
+    

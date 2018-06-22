@@ -1,0 +1,7 @@
+[
+  "test/test_meta.py::test_render_simple_template", 
+  "test/test_meta.py::test_list_token_names", 
+  "test/test_meta.py::test_it_does_not_list_token_if_value_set_within_temmplate", 
+  "test/test_meta.py::test_it_does_not_list_token_if_value_set_within_temmplate_even_if_value_undefined", 
+  "test/test_meta.py::test_or_strucuture"
+]
