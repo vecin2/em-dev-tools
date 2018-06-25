@@ -1,5 +1,4 @@
 from jinja2 import Environment, meta, Template, nodes
-from sql_gen.template_source import TemplateSource
 import pytest
 import sys
 
