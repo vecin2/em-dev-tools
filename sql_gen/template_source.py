@@ -6,14 +6,14 @@ class TemplateSource(object):
         var_node = self.get_node_by_name(name)
         default_value=""
         if var_node:
-            default_value = self.get_node_default_value(var_node)
+            default_value = self.get_arg_value(var_node)
         return default_value
 
-    def get_value_description(self, name):
+    def get_description(self, name):
         var_node = self.get_node_by_name(name)
         default_value=""
         if var_node:
-            default_value = self.get_node_value_description(var_node)
+            default_value = self.get_arg_value(var_node)
         return default_value
 
     def get_node_by_name(self,name):
@@ -24,14 +24,8 @@ class TemplateSource(object):
                     var_node=node;
         return var_node
 
-    def get_node_default_value(self,filter_node):
-        if isinstance(filter_node, nodes.Filter) \
-                & (filter_node.name == "default"):
+    def get_arg_value(self,filter_node):
+        if isinstance(filter_node, nodes.Filter):
                     return filter_node.args[0].value
         return ""
 
-    def get_node_value_description(self,filter_node):
-        if isinstance(filter_node, nodes.Filter) \
-                & (filter_node.name == "description"):
-                    return filter_node.args[0].value
-        return ""

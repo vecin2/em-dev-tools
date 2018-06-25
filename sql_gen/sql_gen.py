@@ -19,7 +19,7 @@ print('*****',parsed_content.body[0].nodes[9])
 template_vars =meta.find_undeclared_variables(parsed_content)
 context ={}
 for current in template_vars:
-    desc_unicode = template_source.get_value_description(current)
+    desc_unicode = template_source.get_description(current)
     default_unicode= template_source.get_default_value(current)
 
     prompt_text=current 
