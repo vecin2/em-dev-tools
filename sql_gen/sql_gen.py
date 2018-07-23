@@ -1,5 +1,5 @@
 from jinja2 import Environment, FileSystemLoader, select_autoescape, meta, Template
-from template_source import TemplateSource
+from sql_gen.template_source import TemplateSource
 
 def description(value, description):
     return value

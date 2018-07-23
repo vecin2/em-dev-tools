@@ -17,7 +17,6 @@ class TemplateSource(object):
             return self.root
 
     def add_children_nodes(self,node,parent):
-        #node_value = tree_node.value
         node_value = node
         if node_value:
             if (hasattr(node_value, "name")):
@@ -35,25 +34,29 @@ class TemplateSource(object):
 
     def get_filter_arg_value_by_node_name(self,filter_name,node_name):
         tree_node = self.get_tree_node_by_name(self.root, node_name)
+        print("found tree_node by name: "+ node_name + " is "+ str(tree_node))
         if tree_node:
             parent_node =tree_node.parent
             while parent_node:
                 if hasattr(parent_node, "value"):
                     parent_filter = parent_node.value
-                if parent_filter.name == filter_name:
-                    return self.get_arg_value(parent_filter)
+                    if parent_filter.name == filter_name:
+                        return self.get_arg_value(parent_filter)
 
                 parent_node = parent_node.parent
                 
         return ""
 
     def get_tree_node_by_name(self,parent,name):
+        if not parent.children:
+            return None
         for node in parent.children:
             if(node.name == name):
                 return node
             else:
-                return self.get_tree_node_by_name(node, name)
-
+                child = self.get_tree_node_by_name(node, name)
+                if child:
+                    return child
         return
 
     def get_arg_value(self,filter_node):
