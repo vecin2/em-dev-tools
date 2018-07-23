@@ -3,6 +3,8 @@
   "sql_gen/test/test_ast.py::test_fields", 
   "sql_gen/test/test_ast.py::test_extract_files_from_source", 
   "sql_gen/test/test_ast.py::test_get_description_value", 
+  "sql_gen/test/test_ast.py::test_pipe_default_descripion_filters", 
   "sql_gen/test/test_template_source.py::test_get_default_value", 
-  "sql_gen/test/test_template_source.py::test_get_description_value"
+  "sql_gen/test/test_template_source.py::test_get_description_value", 
+  "sql_gen/test/test_template_source.py::test_pipe_default_descripion_filters"
 ]

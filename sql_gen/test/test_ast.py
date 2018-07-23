@@ -1,8 +1,11 @@
 from jinja2 import Environment, meta, Template, nodes
 import pytest
 import sys
+from sql_gen.sql_gen.filters import *
+from anytree import Node
 
 env = Environment()
+env.filters['description']=description
 def test_list_variable_names():
     ast = env.parse('Hello {{ name }}!')
     template_vars = meta.find_undeclared_variables(ast)
@@ -38,3 +41,37 @@ def test_get_description_value():
                                      "), "+\
                               "TemplateData(data=u'!')])"
     assert body_string ==str(ast.body[0])
+
+def test_pipe_default_descripion_filters():
+    ast = env.parse("Hello {{ name | default ('Mundo') | description ('World in english') }}!")
+    body_string="Output(nodes=[TemplateData(data=u'Hello '), "+ \
+                              "Filter(node=Filter(" +\
+                                        "node=Name(name='name', ctx='load'), "+\
+                                        "name='default', "+\
+                                        "args=[Const(value=u'Mundo')], "+\
+                                        "kwargs=[], "+\
+                                        "dyn_args=None, "+\
+                                        "dyn_kwargs=None"+\
+                                        "), "+\
+                                      "name='description', "+\
+                                      "args=[Const(value=u'World in english')], "+\
+                                      "kwargs=[], dyn_args=None, "+\
+                                      "dyn_kwargs=None"+\
+                                      "), "+\
+                              "TemplateData(data=u'!')])"
+    
+
+    assert body_string ==str(ast.body[0])
+
+def test_anytree_node():
+    ast = env.parse("Hello {{ name | default ('Mundo') | description ('World in english') }}!")
+    filter_node =ast.body[0].nodes[1]
+    assert "description" ==filter_node.name
+
+    description_node = Node("description")
+    nameNode = Node("name", parent=description_node, value=filter_node)
+
+    assert "name"== description_node.children[0].name
+    assert "description"== description_node.children[0].value.name
+
+
