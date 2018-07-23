@@ -5,7 +5,7 @@ VALUES (@PD.{{ process_descriptor_name }}, --ID
  '{{ process_descriptor_name }}', --process_descriptor_name
  '{{ repository_path }}', --repository_path 
  {{ config_id | default('NULL') }} , --config_id
- 'N',
+ 'N', -- is_deleted
  {{ process_descriptor_type |
     description('type id (0=regular process, 2=action, 3=sla)') }} --type
 );
