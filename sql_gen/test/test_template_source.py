@@ -33,7 +33,12 @@ def test_pipe_default_descripion_filters(env):
     ast = env.parse("Hello {{ name | default ('Mundo') | description ('World in english') }}!")
     template_source = TemplateSource(ast)
     assert "Mundo" ==str(template_source.get_default_value("name"))
+    assert "World in english" == str(template_source.get_description("name"))
 
+def test_pipe_default_descripion_filters_with_multiple_vars(env):
+    ast = env.parse("Hello {{ prename }} {{ name | default ('Mundo') | description ('World in english') }}!")
+    template_source = TemplateSource(ast)
+    assert "Mundo" ==str(template_source.get_default_value("name"))
     assert "World in english" == str(template_source.get_description("name"))
 
 def test_traverse_template_nodes(env):
