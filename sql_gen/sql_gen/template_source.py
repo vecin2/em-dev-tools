@@ -34,7 +34,6 @@ class TemplateSource(object):
 
     def get_filter_arg_value_by_node_name(self,filter_name,node_name):
         tree_node = self.get_tree_node_by_name(self.root, node_name)
-        print("found tree_node by name: "+ node_name + " is "+ str(tree_node))
         if tree_node:
             parent_node =tree_node.parent
             while parent_node:
