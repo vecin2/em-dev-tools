@@ -1,5 +1,6 @@
 from jinja2 import Environment, FileSystemLoader, select_autoescape, meta, Template
 from sql_gen.template_source import TemplateSource
+from sql_gen.prompter import Prompter
 import os,sys
 
 
@@ -10,17 +11,8 @@ class TemplateOption():
         self.name =name
 
 class TemplateSelector():
-    def init(self):
-        env = Environment(
-                loader=FileSystemLoader('/home/dgarcia/dev/python/em_dev_tools/sql_gen/templates'),
-                autoescape=select_autoescape(['html', 'xml'])
-                )
-
-        env.filters['description']=description
-        return env
-
     def select_template(self, env):
-        template_list = env.list_templates()
+        template_list = env.list_templates(".sql")
         template_option_list=[]
         for counter, template in enumerate(template_list):
             template_option =TemplateOption(counter, template)
@@ -31,7 +23,9 @@ class TemplateSelector():
 
         template_number = raw_input("Please select template to parse: ")
 
-        return self.get_template_by_id(template_option_list, template_number).name
+        template_name = self.get_template_by_id(template_option_list, template_number).name
+        return TemplateSource(template_name,env)
+    
 
     def get_template_by_id(self, template_option_list, template_number):
         for template_option in template_option_list:
@@ -42,31 +36,17 @@ class TemplateSelector():
 def description(value, description):
     return value
 
+
+env = Environment(
+                loader=FileSystemLoader('/home/dgarcia/dev/python/em_dev_tools/sql_gen/templates'),
+                autoescape=select_autoescape(['html', 'xml']))
+env.filters['description']=description
+
 template_selector = TemplateSelector()
+template_source= template_selector.select_template(env)
 
-env =template_selector.init()
-template_name= template_selector.select_template(env)
-template = env.get_template(template_name)
-template_source = env.loader.get_source(env,template_name)[0]
-parsed_content= env.parse(template_source)
-
-template_source=TemplateSource(parsed_content)
-
-template_vars =meta.find_undeclared_variables(parsed_content)
-context ={}
-for current in template_vars:
-    desc_unicode = template_source.get_description(current)
-    default_unicode= template_source.get_default_value(current)
-
-    prompt_text=current 
-    if desc_unicode:
-        prompt_text = desc_unicode.encode('ascii','ignore')
-    if default_unicode:
-        default_value= default_unicode.encode('ascii','ignore')
-        prompt_text = prompt_text + " (default is "+default_value+")"
-    var =raw_input(prompt_text+":")
-    if var:
-        context[current] = var
-
+prompter = Prompter(template_source)
+context = prompter.build_context()
+template = template_source.get_template()
 print(template.render(context))
 

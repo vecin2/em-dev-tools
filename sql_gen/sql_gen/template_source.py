@@ -1,11 +1,19 @@
-from jinja2 import nodes
+from jinja2 import nodes,meta
 from anytree import Node
 class TemplateSource(object):
-    def __init__(self,ast):
-        self.ast =ast
-        self.ast_nodes =ast.body[0].nodes
+    def __init__(self,template_name, env):
+        self.template = env.get_template(template_name)
+        template_source = env.loader.get_source(env,template_name)[0]
+        self.ast= env.parse(template_source)
+        self.ast_nodes =self.ast.body[0].nodes
         self.root=""
         self.root = self.get_root_node()
+
+    def get_template(self):
+        return self.template;
+
+    def find_undeclared_variables(self):
+        return meta.find_undeclared_variables(self.ast)
 
     def get_root_node(self):
         if self.root:
