@@ -3,8 +3,7 @@ from sql_gen.template_source import TemplateSource
 from sql_gen.prompter import Prompter
 import os,sys
 
-
-
+#sys.path.append("/home/dgarcia/dev/python/em_dev_tools/sql_gen")
 class TemplateOption():
     def __init__(self,id, name):
         self.id =id
@@ -38,7 +37,6 @@ class TemplateSelector():
 
 def description(value, description):
     return value
-
 
 env = Environment(
                 loader=FileSystemLoader('/home/dgarcia/dev/python/em_dev_tools/sql_gen/templates'),

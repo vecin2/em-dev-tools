@@ -1,5 +1,3 @@
-from jinja2 import Environment
-
 class DefaultFilter(object):
     def __init__(self, jinja_filter):
         self.filter = jinja_filter;

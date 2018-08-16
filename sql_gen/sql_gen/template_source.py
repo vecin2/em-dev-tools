@@ -1,5 +1,6 @@
 from jinja2 import nodes,meta
 from anytree import Node
+import importlib
 #from sql_gen.filters.default import DefaultFilter
 
 class DefaultFilter(object):
@@ -158,12 +159,19 @@ class TemplateSource(object):
                     return filter_node.args[0].value
         return ""
 
+    def get_filter_definition(self,jinja2_filter):
+        filter_name=jinja2_filter.name
+        return getattr(importlib.import_module("sql_gen."+filter_name), filter_name.capitalize()+"Filter")
+
+
     def get_filters(self, node_name):
         node = self.get_tree_node_by_name(self.root,node_name)
         result=[]
         for current_node in node.ancestors:
             if (hasattr(current_node, "value")) and\
                 isinstance(current_node.value, nodes.Filter):
-                    result.append(DefaultFilter(current_node.value))
+                    DynamicFilter = self.get_filter_definition(current_node.value) 
+                    template_filter = DynamicFilter(current_node.value)
+                    result.append(template_filter)
 
         return result

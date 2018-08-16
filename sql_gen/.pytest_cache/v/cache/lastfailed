@@ -1,4 +1,5 @@
 {
+  "test/test_prompter.py::test_get_promts": true, 
   "test/test_template_source.py::test_get_filters": true, 
   "test/test_template_source.py::test_get_node_filters": true, 
   "test/test_template_source.py::test_get_promts": true
