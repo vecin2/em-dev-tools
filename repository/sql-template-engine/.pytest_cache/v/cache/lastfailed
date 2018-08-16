@@ -1,5 +1,0 @@
-{
-  "sql-gen.py::test1": true, 
-  "sql-gen.py::test_foo": true, 
-  "test/test_meta.py::test_it_prompts_for_undefined_tokens": true
-}

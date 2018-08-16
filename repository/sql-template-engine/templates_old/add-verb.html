@@ -1,7 +1,0 @@
-{#  VALUES (@V.{{ verb_id }}, en-GB, $VERB_NAME, $V #}
-INSERT INTO EVA_VERB_LOC (ID, LOCALE, DISPLAY_NAME, DESCRIPTION) VALUES (@V.{{ verb_id }}, 'en-GB', '{{ verb_name }}', '$VERB_NAME');
-
-{% set process_desc_ref_id = verb_id %}
-
-INSERT INTO EVA_PROCESS_DESC_REFERENCE (ID, PROCESS_DESCRIPTOR_ID, PROCESS_DESCRIPTOR_ENV_ID, CONFIG_ID, IS_SHARED) 
-VALUES (@PDR.{{ process_desc_ref_id }}, @PD.${PROCESS_DESCRIPTOR_ID}, @ENV.Dflt, NULL, 'N');

@@ -8,3 +8,7 @@
 
 refactor current progress
 
+	-Do not list hidden files (.*)
+Compute file location
++Print output to a a file
+

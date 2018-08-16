@@ -1,6 +1,0 @@
-[
-  "jinja_ast.py::test_list_token_names", 
-  "jinja_ast.py::test_fields", 
-  "jinja_ast.py::test_extract_files_from_source", 
-  "jinja_ast.py::test_print_var_name"
-]
