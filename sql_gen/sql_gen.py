@@ -24,7 +24,10 @@ class TemplateSelector():
         template_number = raw_input("Please select template to parse: ")
 
         template_name = self.get_template_by_id(template_option_list, template_number).name
-        return TemplateSource(template_name,env)
+        source = env.loader.get_source(env,template_name)[0]
+        template_source = TemplateSource(env.parse(source))
+        template_source.template_name = template_name
+        return template_source
     
 
     def get_template_by_id(self, template_option_list, template_number):
@@ -47,6 +50,6 @@ template_source= template_selector.select_template(env)
 
 prompter = Prompter(template_source)
 context = prompter.build_context()
-template = template_source.get_template()
+template = env.get_template(template_source.template_name)
 print(template.render(context))
 
