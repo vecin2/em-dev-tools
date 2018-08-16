@@ -19,11 +19,7 @@ class TemplateSelector():
 
         template_number = raw_input("Please select template to parse: ")
 
-        template_name = self.get_template_by_id(template_option_list, template_number).name
-        source = env.loader.get_source(env,template_name)[0]
-        template_source = TemplateSource(env.parse(source))
-        template_source.template_name = template_name
-        return template_source
+        return load_template_source_by_option(template_number)
     
     def create_options_to_select(self):
         template_option_list=[]
@@ -36,6 +32,13 @@ class TemplateSelector():
             if template_number == str(template_option.id):
                 return template_option
         return None
+
+    def load_template_source_by_option(option_number, env):
+        template_name = self.get_template_by_id(template_option_list, template_number).name
+        source = env.loader.get_source(env,template_name)[0]
+        template_source = TemplateSource(env.parse(source))
+        template_source.template_name = template_name
+        return template_source
 
 def description(value, description):
     return value
