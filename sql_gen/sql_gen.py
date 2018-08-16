@@ -1,4 +1,4 @@
-from jinja2 import Environment, FileSystemLoader, select_autoescape, meta, Template
+wimrom jinja2 import Environment, FileSystemLoader, select_autoescape, meta, Template
 from sql_gen.template_source import TemplateSource
 from sql_gen.prompter import Prompter
 import os,sys
@@ -12,10 +12,7 @@ class TemplateOption():
 class TemplateSelector():
     def select_template(self, env):
         template_list = env.list_templates(".sql")
-        template_option_list=[]
-        for counter, template in enumerate(template_list):
-            template_option =TemplateOption(counter, template)
-            template_option_list.append(template_option)
+        template_option_list = create_options_to_select()
             
         for template_option in template_option_list:
             print(str(template_option.id) + ". " +template_option.name)
@@ -28,6 +25,11 @@ class TemplateSelector():
         template_source.template_name = template_name
         return template_source
     
+    def create_options_to_select(self):
+        template_option_list=[]
+        for counter, template in enumerate(template_list):
+            template_option =TemplateOption(counter, template)
+            template_option_list.append(template_option)
 
     def get_template_by_id(self, template_option_list, template_number):
         for template_option in template_option_list:
