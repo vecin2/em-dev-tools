@@ -1,6 +1,5 @@
 from jinja2 import Environment, meta, Template, nodes
 from sql_gen.sql_gen.template_source import TemplateSource
-from sql_gen.sql_gen.filters import *
 import pytest
 
 @pytest.fixture
@@ -66,3 +65,4 @@ def test_traverse_template_nodes(env):
     assert "Name(name='name', ctx='load')" == str(root_node.children[1].children[0].children[0].value)
 
 
+    

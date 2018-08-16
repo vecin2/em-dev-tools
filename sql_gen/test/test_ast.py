@@ -1,7 +1,6 @@
 from jinja2 import Environment, meta, Template, nodes
 import pytest
 import sys
-from sql_gen.sql_gen.filters import *
 from anytree import Node
 
 env = Environment()

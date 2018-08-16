@@ -76,7 +76,7 @@ class TemplateSource(object):
 
     def get_filter_definition(self,jinja2_filter):
         filter_name=jinja2_filter.name
-        return getattr(importlib.import_module("sql_gen."+filter_name), filter_name.capitalize()+"Filter")
+        return getattr(importlib.import_module("filters."+filter_name), filter_name.capitalize()+"Filter")
 
 
     def get_filters(self, node_name):

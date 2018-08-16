@@ -1,5 +1,3 @@
-from jinja2 import Environment
-
 class DefaultFilter(object):
     def __init__(self, jinja_filter):
         self.filter = jinja_filter;
@@ -10,3 +8,4 @@ class DefaultFilter(object):
             default_value= default_unicode.encode('ascii','ignore')
             prompt_text = prompt_text + " (default is "+default_value+")"
         return prompt_text
+

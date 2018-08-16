@@ -1,10 +1,13 @@
 from jinja2 import Environment, FileSystemLoader, select_autoescape, meta, Template
 from sql_gen.template_source import TemplateSource
 from sql_gen.prompter import Prompter
+from sql_gen.filter_loader import load_filters
+import filters.description
+from filters.description import DescriptionFilter
 import os,sys
 
 #sys.path.append("/home/dgarcia/dev/python/em_dev_tools/sql_gen")
-class TemplateOption():
+class TemplateOption(object):
     def __init__(self,id, name):
         self.id =id
         self.name =name
@@ -48,15 +51,13 @@ class TemplateSelector():
         template_source.template_name = template_name
         return template_source
 
-def description(value, description):
-    return value
 
 ##main
 env = Environment(
                 loader=FileSystemLoader('/home/dgarcia/dev/python/em_dev_tools/sql_gen/templates'),
                 autoescape=select_autoescape(['html', 'xml']))
-env.filters['description']=description
 
+load_filters(env)
 template_selector = TemplateSelector()
 template_source= template_selector.select_template(env)
 prompter = Prompter(template_source)
