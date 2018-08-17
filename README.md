@@ -11,9 +11,7 @@ For example a template like the following:
 ```sql
 INSERT INTO EVA_PROCESS_DESCRIPTOR (ID, ENV_ID, NAME, REPOSITORY_PATH, CONFIG_PROCESS_ID, IS_DELETED, TYPE) 
 VALUES (@PD.{{ process_descriptor_name }}, --ID
-
  @ENV.Dflt, --ENV_ID,
- 
  '{{ process_descriptor_name }}', --process_descriptor_name
  
  '{{ repository_path }}', --repository_path 
