@@ -32,7 +32,7 @@ It should prompt the user the following:
  
  config_id (default is NULL):
  
- type id (0=regular process, 2=action, 3=sla):
+ type id (0=regular protype id (0=regular process, 2=action, 3=sla) (default is 0):
   
   
  
