@@ -27,8 +27,11 @@ VALUES
 
 It should prompt the user the following:
  repository_path:
+ 
  process_descriptor_name:
+ 
  config_id (default is NULL):
+ 
  type id (0=regular process, 2=action, 3=sla):
   
   
