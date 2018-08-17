@@ -1,11 +1,14 @@
 from jinja2 import Environment, meta, Template, nodes
-#from sql_gen.sql_gen.filter_loader import loader_filters
+from sql_gen.sql_gen.filter_loader import load_filters
 from sql_gen.sql_gen.template_source import TemplateSource
 from sql_gen.sql_gen.prompter import Prompter
 import pytest
+import sys
+
 
 @pytest.fixture
 def env():
+    sys.path.append("/home/dgarcia/dev/python/em_dev_tools/sql_gen")
     env =  Environment()
     load_filters(env)
     return env
@@ -20,18 +23,32 @@ def test_prompt_default(env):
     prompts = prompter.get_prompts()
 
     assert 1 == len(prompts)
-    assert_display_text("name (default is Mundo): ", prompts[0])
+    assert_display_text("name (default is Mundo)", prompts[0])
 
 def test_prompt_description(env):
     ast = env.parse("Hello {{ name | description ('customer name') }}!")
     prompter = build_prompter(ast)
 
     prompts = prompter.get_prompts()
-
     assert 1 == len(prompts)
     assert_display_text("customer name", prompts[0])
 
 
+def test_get_description_value_when_multiple_vars(env):
+    ast = env.parse("Hello {{ prename }} {{ name | description ('first name') }}!")
+    prompter = build_prompter(ast)
+    prompts = prompter.get_prompts()
+
+    assert_display_text("prename", prompts[0])
+    assert_display_text("first name", prompts[1])
+
+def test_pipe_default_descripion_filters(env):
+    ast = env.parse("Hello {{ prename }} {{ name | default ('Mundo') | description ('World in english') }}!")
+    prompter = build_prompter(ast)
+    prompts = prompter.get_prompts()
+
+    assert_display_text("prename", prompts[0])
+    assert_display_text("World in english (default is Mundo)", prompts[1])
+
 def assert_display_text(expected_text, prompt):
-    assert expected_text == prompt.get_diplay_text()
-    
+    assert expected_text+ ": " == prompt.get_diplay_text()

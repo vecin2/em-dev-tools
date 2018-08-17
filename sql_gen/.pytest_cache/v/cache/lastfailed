@@ -1,6 +1,5 @@
 {
-  "test/test_ast.py": true, 
-  "test/test_prompter.py::test_prompt_default": true, 
+  "test/test_prompter.py": true, 
   "test/test_prompter.py::test_prompt_description": true, 
   "test/test_template_node.py": true, 
   "test/test_template_source.py::test_get_default_value": true, 

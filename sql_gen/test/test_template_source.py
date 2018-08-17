@@ -1,44 +1,25 @@
 from jinja2 import Environment, meta, Template, nodes
 from sql_gen.sql_gen.template_source import TemplateSource
+from sql_gen.sql_gen.filter_loader import load_filters
 import pytest
+import sys
 
 @pytest.fixture
 def env():
     env =  Environment()
-    env.filters['description']=description
+    load_filters(env)
     return env
     
-
-def test_get_default_value(env):
-    ast = env.parse("Hello {{ name | default ('Mundo') }}!")
-    template_source = TemplateSource(ast)
-
-    assert "Mundo" == str(template_source.get_default_value("name"))
-
-
-def test_get_description_value(env):
-    ast = env.parse("Hello {{ name | description ('Mundo') }}!")
-    template_source = TemplateSource(ast)
-
-    assert "Mundo" == str(template_source.get_description("name"))
-
-def test_get_description_value_when_multiple_vars(env):
-    ast = env.parse("Hello {{ prename }} {{ name | description ('Mundo') }}!")
-    template_source = TemplateSource(ast)
-
-    assert "Mundo" == str(template_source.get_description("name"))
-
-def test_pipe_default_descripion_filters(env):
+def test_anytree_node():
     ast = env.parse("Hello {{ name | default ('Mundo') | description ('World in english') }}!")
-    template_source = TemplateSource(ast)
-    assert "Mundo" ==str(template_source.get_default_value("name"))
-    assert "World in english" == str(template_source.get_description("name"))
+    filter_node =ast.body[0].nodes[1]
+    assert "description" ==filter_node.name
 
-def test_pipe_default_descripion_filters_with_multiple_vars(env):
-    ast = env.parse("Hello {{ prename }} {{ name | default ('Mundo') | description ('World in english') }}!")
-    template_source = TemplateSource(ast)
-    assert "Mundo" ==str(template_source.get_default_value("name"))
-    assert "World in english" == str(template_source.get_description("name"))
+    description_node = Node("description")
+    nameNode = Node("name", parent=description_node, value=filter_node)
+
+    assert "name"== description_node.children[0].name
+    assert "description"== description_node.children[0].value.name
 
 def test_traverse_template_nodes(env):
     ast = env.parse("Hello {{ prename }} {{ name | default ('Mundo') | description ('World in english') }}!")

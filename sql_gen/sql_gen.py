@@ -6,7 +6,9 @@ import filters.description
 from filters.description import DescriptionFilter
 import os,sys
 
-#sys.path.append("/home/dgarcia/dev/python/em_dev_tools/sql_gen")
+user_paths = os.environ['PYTHONPATH'].split(os.pathsep)
+print(user_paths)
+sys.path.append("/home/dgarcia/dev/python/em_dev_tools/sql_gen")
 class TemplateOption(object):
     def __init__(self,id, name):
         self.id =id

@@ -2,9 +2,12 @@ from jinja2 import Environment, meta, Template, nodes
 import pytest
 import sys
 from anytree import Node
+from sql_gen.sql_gen.filter_loader import load_filters
+import os
 
 env = Environment()
-env.filters['description']=description
+load_filters(env)
+
 def test_list_variable_names():
     ast = env.parse('Hello {{ name }}!')
     template_vars = meta.find_undeclared_variables(ast)
@@ -18,7 +21,7 @@ def test_fields():
         fields = fields + field
     assert "body" == fields
 
-def test_extract_files_from_source():
+def test_template_body_structure():
     ast = env.parse('Hello {{ name }}!')
     for field, value in ast.iter_fields():
         assert "body" == field

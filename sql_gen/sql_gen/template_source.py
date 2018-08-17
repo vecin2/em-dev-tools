@@ -1,5 +1,6 @@
 from jinja2 import nodes,meta
 from anytree import Node
+from filters.default import DefaultFilter
 import importlib
 
 
@@ -76,6 +77,8 @@ class TemplateSource(object):
 
     def get_filter_definition(self,jinja2_filter):
         filter_name=jinja2_filter.name
+        #if filter_name == "default":
+        #return DefaultFilter
         return getattr(importlib.import_module("filters."+filter_name), filter_name.capitalize()+"Filter")
 
 
