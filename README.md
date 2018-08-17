@@ -1,7 +1,7 @@
 # em-dev-tools
  The main pacakge is sql_gen
  
-## sql_gen
+ ## sql_gen
   Its a command line application that reads from a folder of sql_templates, and let the user select which one he like to fill. Then it prompts the user to enter the values and finally renders the template and write it to the given place in the fylesystem.
   Some of the values can be computed based on what the use enters, so to create a set of "filters" which will allow writting templates using in a way that minimizes the user action and it provides good feedback on how to fill the values.
  
@@ -10,7 +10,6 @@ For example a template like the following:
 
 `INSERT INTO EVA_PROCESS_DESCRIPTOR (ID, ENV_ID, NAME, REPOSITORY_PATH, CONFIG_PROCESS_ID, IS_DELETED, TYPE) 
 VALUES (@PD.{{ process_descriptor_name }}, --ID
-
  @ENV.Dflt, --ENV_ID,
  '{{ process_descriptor_name }}', --process_descriptor_name
  '{{ repository_path }}', --repository_path 
