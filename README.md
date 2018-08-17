@@ -1,3 +1,12 @@
+# Installation and Execution
+Remember to source pipenv to source all the python libs: . bin/activate
+Source as well the local file "set_env_vars.sh" which is a work around to fix an issue importing modules.
+
+The application be executing by running: python sql_gen.py
+Test can run with pytest: pytest sql_gent/test
+
+
+
 # em-dev-tools
  The main pacakge is sql_gen
  
