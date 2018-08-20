@@ -77,8 +77,6 @@ class TemplateSource(object):
 
     def get_filter_definition(self,jinja2_filter):
         filter_name=jinja2_filter.name
-        #if filter_name == "default":
-        #return DefaultFilter
         return getattr(importlib.import_module("filters."+filter_name), filter_name.capitalize()+"Filter")
 
 

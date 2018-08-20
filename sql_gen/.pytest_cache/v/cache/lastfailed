@@ -1,6 +1,4 @@
 {
-  "test/test_prompter.py": true, 
-  "test/test_prompter.py::test_prompt_description": true, 
   "test/test_template_node.py": true, 
   "test/test_template_source.py::test_get_default_value": true, 
   "test/test_template_source.py::test_get_description_value": true, 
@@ -9,6 +7,5 @@
   "test/test_template_source.py::test_get_node_filters": true, 
   "test/test_template_source.py::test_get_promts": true, 
   "test/test_template_source.py::test_pipe_default_descripion_filters": true, 
-  "test/test_template_source.py::test_pipe_default_descripion_filters_with_multiple_vars": true, 
-  "test/test_template_source.py::test_traverse_template_nodes": true
+  "test/test_template_source.py::test_pipe_default_descripion_filters_with_multiple_vars": true
 }

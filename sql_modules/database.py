@@ -3,9 +3,9 @@ import sys
 
 def update_rev_number():
     host = 'windows'
-    username = 'sa'
-    password = 'admin'
-    database = 'ootb_15_1_fp2'
+    username = 'pedro'
+    password = 'pedro'
+    database = 'db_pedro'
     
     conn = pymssql.connect(host, username, password, database)
     cursor = conn.cursor()

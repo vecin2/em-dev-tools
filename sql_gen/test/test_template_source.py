@@ -1,8 +1,8 @@
 from jinja2 import Environment, meta, Template, nodes
 from sql_gen.sql_gen.template_source import TemplateSource
 from sql_gen.sql_gen.filter_loader import load_filters
+from anytree import Node
 import pytest
-import sys
 
 @pytest.fixture
 def env():
@@ -10,7 +10,7 @@ def env():
     load_filters(env)
     return env
     
-def test_anytree_node():
+def test_anytree_node(env):
     ast = env.parse("Hello {{ name | default ('Mundo') | description ('World in english') }}!")
     filter_node =ast.body[0].nodes[1]
     assert "description" ==filter_node.name
