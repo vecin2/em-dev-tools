@@ -16,9 +16,6 @@ class TemplateSource(object):
     def get_template(self):
         return self.template;
 
-    def find_undeclared_variables(self):
-        return meta.find_undeclared_variables(self.ast)
-
     def get_root_node(self):
         if self.root:
             return self.root
@@ -38,25 +35,6 @@ class TemplateSource(object):
 
         return
 
-    def get_default_value(self, name):
-        return self.get_filter_arg_value_by_node_name("default", name)
-
-    def get_description(self, name):
-        return self.get_filter_arg_value_by_node_name("description", name)
-
-    def get_filter_arg_value_by_node_name(self,filter_name,node_name):
-        tree_node = self.get_tree_node_by_name(self.root, node_name)
-        if tree_node:
-            parent_node =tree_node.parent
-            while parent_node:
-                if hasattr(parent_node, "value"):
-                    parent_filter = parent_node.value
-                    if parent_filter.name == filter_name:
-                        return self.get_arg_value(parent_filter)
-
-                parent_node = parent_node.parent
-                
-        return ""
 
     def get_tree_node_by_name(self,parent,name):
         if not parent.children:
@@ -70,15 +48,8 @@ class TemplateSource(object):
                     return child
         return
 
-    def get_arg_value(self,filter_node):
-        if isinstance(filter_node, nodes.Filter):
-                    return filter_node.args[0].value
-        return ""
-
-    def get_filter_definition(self,jinja2_filter):
-        filter_name=jinja2_filter.name
-        return getattr(importlib.import_module("filters."+filter_name), filter_name.capitalize()+"Filter")
-
+    def find_undeclared_variables(self):
+        return meta.find_undeclared_variables(self.ast)
 
     def get_filters(self, node_name):
         node = self.get_tree_node_by_name(self.root,node_name)
@@ -91,3 +62,8 @@ class TemplateSource(object):
                     result.append(template_filter)
 
         return result
+
+    def get_filter_definition(self,jinja2_filter):
+        filter_name=jinja2_filter.name
+        return getattr(importlib.import_module("filters."+filter_name), filter_name.capitalize()+"Filter")
+
