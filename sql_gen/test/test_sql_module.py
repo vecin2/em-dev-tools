@@ -19,11 +19,15 @@ def test_create_sql_task(fs):
     #sql_task.set_ouput()
     sql_task.write()
     
-    final_path = os.path.join(EMProject.core_home(), sql_task_path)
-    final_path = os.path.join(final_path, "tableData.sql")
-    assert os.path.exists(final_path)
-    file = open(final_path,"r")
-    file_content = file.read()
-    print "hola file content is ", file_content
-    assert "some data" == file_content
+    full_task_path = os.path.join(EMProject.core_home(), sql_task_path)
+    table_data_path = os.path.join(full_task_path, "tableData.sql")
+    assert_file_exist(table_data_path, "some data")
+    update_sequence_path = os.path.join(full_task_path, "update.sequence")
+    assert_file_exist(update_sequence_path, "PROJECT $Revision: 0 $")
+
+def assert_file_exist(file_path, expected_file_content):
+    assert os.path.exists(file_path)
+    file = open(file_path,"r")
+    actual_file_content = file.read()
+    assert expected_file_content == actual_file_content
 
