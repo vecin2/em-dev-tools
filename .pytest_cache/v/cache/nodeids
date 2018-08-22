@@ -11,8 +11,7 @@
   "sql_gen/test/test_prompter.py::test_pipe_default_descripion_filters", 
   "sql_gen/test/test_sql_module.py::test_creates_update_sequence", 
   "sql_gen/test/test_sql_module.py::test_image_file", 
-  "sql_gen/test/test_sql_module.py::test_create_normal_file", 
-  "sql_gen/test/test_sql_module.py::test_sql_module", 
+  "sql_gen/test/test_sql_module.py::test_create_sql_task", 
   "sql_gen/test/test_template_source.py::test_anytree_node", 
   "sql_gen/test/test_template_source.py::test_traverse_template_nodes"
 ]

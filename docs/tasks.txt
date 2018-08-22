@@ -1,10 +1,6 @@
 
-refactor current progress
 
-	-Do not list hidden files (.*)
-
-basic distribution 
-
-Compute file location
+----basic distribution 
 +Print output to a a file
-implement project.add_sql_task(task_name, content, module_name, svn_rev_no)
+fix work around of running set_env_vars.sh to make test pass
+logging

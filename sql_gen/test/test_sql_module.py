@@ -1,12 +1,9 @@
 import pytest
 import os
+from sql_module.em_project import SQLTask, EMProject
 
 
 def test_creates_update_sequence(tmpdir):
-
-    #sql_module = SqlModule("GSCCoreEntities")
-    #sql_module.add(SqlTask("override_search"))
-
     p = tmpdir.mkdir("sub").join("hello.txt")
     p.write("content")
     assert p.read() == "content"
@@ -16,34 +13,17 @@ def test_image_file(fs):
     fs.create_file('/var/data/xx1.txt')
     assert os.path.exists('/var/data/xx1.txt')
 
-def test_create_normal_file(fs):
-    f = open("gurufs.txt", "w+")
+def test_create_sql_task(fs):
+    sql_task_path ="/modules/CoreEntiy/rewire_search"
+    sql_task = SQLTask.make().path(sql_task_path).with_table_data("some data");
+    #sql_task.set_ouput()
+    sql_task.write()
     
-def test_create_normal_file():
-    f = open("guru.txt", "w+")
+    final_path = os.path.join(EMProject.core_home(), sql_task_path)
+    final_path = os.path.join(final_path, "tableData.sql")
+    assert os.path.exists(final_path)
+    file = open(final_path,"r")
+    file_content = file.read()
+    print "hola file content is ", file_content
+    assert "some data" == file_content
 
-def test_sql_module():
-    sql_module = SqlModule("test_dir")
-    sql_module.create()
-    assert os.path.exists("test_dir")
-
-def test_sql_module(fs):
-    sql_module = SqlModule("test_dir_fs")
-    sql_module.create()
-    assert os.path.exists("test_dir_fs")
-
-class SqlModule(object):
-    def __init__(self,name):
-        self.name =name
-
-    def create(self):
-        os.makedirs(self.name)
-
-class SqlTask(object):
-    def __init__(self,name):
-        self.name =name
-
-
-class EMProject(object):
-    def add_sql_task(self, sql_task):
-        2 = 2

@@ -6,6 +6,8 @@ import filters.description
 from filters.description import DescriptionFilter
 import os,sys
 import argparse
+from sql_module.em_project import SQLTask, EMProject
+
 
 #sys.path.append("/home/dgarcia/dev/python/em_dev_tools/sql_gen")
 class TemplateOption(object):
@@ -57,6 +59,7 @@ class TemplateSelector():
 def run_app():
  # construct the argument parse and parse the arguments
     args = parse_args();
+    sql_task_path = args["path"]
     env = Environment(
                     loader=FileSystemLoader('/home/dgarcia/dev/python/em_dev_tools/sql_gen/templates'),
                     autoescape=select_autoescape(['html', 'xml']))
@@ -68,7 +71,10 @@ def run_app():
     context = prompter.build_context()
     template = env.get_template(template_source.template_name)
 
-    print(template.render(context))
+    template_parsed =template.render(context)
+    print(template_parsed)
+    sql_task = SQLTask.make().path(sql_task_path).with_table_data(template_parsed);
+    sql_task.write()
 #    EMProject.add_sql_task(TableDataTask.path(sql_task_path)
 #                                  .with_table_data(parsed_template))
 #                                  
