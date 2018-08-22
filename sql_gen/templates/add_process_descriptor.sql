@@ -8,5 +8,5 @@ VALUES (@PD.{{ process_descriptor_name }}, --ID
  'N',
  {{ process_descriptor_type |
     default ('0') |
-    description('type id (0=regular process, 2=action, 3=sla)') }} --type
+    description('type_id (0=regular process, 2=action, 3=sla)') }} --type
 );

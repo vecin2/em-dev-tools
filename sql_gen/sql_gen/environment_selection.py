@@ -52,8 +52,8 @@ class EMTemplatesEnv():
     def __init__(self):
         templates_path =os.environ['SQL_TEMPLATES_PATH']
         self.env = Environment(
-                loader=FileSystemLoader(templates_path),
-                autoescape=select_autoescape(['html', 'xml']))
+        loader=FileSystemLoader(templates_path),
+                         autoescape=select_autoescape(['html', 'xml']))
         load_filters(self.env)
     
     def get_env(self):

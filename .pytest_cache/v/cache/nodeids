@@ -13,5 +13,6 @@
   "sql_gen/test/test_sql_module.py::test_image_file", 
   "sql_gen/test/test_sql_module.py::test_create_sql_task", 
   "sql_gen/test/test_template_source.py::test_anytree_node", 
-  "sql_gen/test/test_template_source.py::test_traverse_template_nodes"
+  "sql_gen/test/test_template_source.py::test_traverse_template_nodes", 
+  "sql_gen/test/test_templates_prompting.py::test_process_descriptor"
 ]
