@@ -1,3 +1,4 @@
 {
-  "sql_gen/test/test_template_source.py::test_sys_path": true
+  "sql_gen/test/test_template_source.py::test_sys_path": true, 
+  "sql_gen/test/test_templates_prompting.py": true
 }

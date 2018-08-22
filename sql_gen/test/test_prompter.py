@@ -8,7 +8,6 @@ import sys
 
 @pytest.fixture
 def env():
-    sys.path.append("/home/dgarcia/dev/python/em_dev_tools/sql_gen")
     env =  Environment()
     load_filters(env)
     return env
