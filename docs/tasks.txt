@@ -1,14 +1,10 @@
 
-1. As user I want to list all the templates available
-2. As user I want to be prompted to enter every template value
-2. As user I would want to see a description-help/default when prompt for a value
-1. As user I want to add template by simply dropping my template into a designated folder
-
-1. I need to be able ask the user to enter each value within the place holder.
-
 refactor current progress
 
 	-Do not list hidden files (.*)
+
+basic distribution 
+
 Compute file location
 +Print output to a a file
-
+implement project.add_sql_task(task_name, content, module_name, svn_rev_no)
