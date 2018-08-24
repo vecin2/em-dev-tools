@@ -1,12 +1,22 @@
-from jinja2 import Environment, meta, Template, nodes
+from jinja2 import Environment, meta, Template, nodes, FileSystemLoader, select_autoescape
 import pytest
 import sys
 from anytree import Node
 from sql_gen.sql_gen.filter_loader import load_filters
 import os
 
+templates_path =os.environ['SQL_TEMPLATES_PATH']
 env = Environment()
 load_filters(env)
+
+def test_include_templates():
+    ast = env.parse("{% include 'add_process_descriptor.sql' %} hola marco")
+    template_vars = meta.find_undeclared_variables(ast)
+    assert 0  == len(template_vars)
+    for field, value in ast.iter_fields():
+        assert "body" == field
+        #assert "sddf" == value
+       # assert  "Hello " == value[0]
 
 def test_list_variable_names():
     ast = env.parse('Hello {{ name }}!')
@@ -25,6 +35,7 @@ def test_template_body_structure():
     ast = env.parse('Hello {{ name }}!')
     for field, value in ast.iter_fields():
         assert "body" == field
+        assert value == ast.body
         assert "[Output(nodes=[TemplateData(data=u'Hello '), Name(name='name', ctx='load'), TemplateData(data=u'!')])]" == str(value)
         assert  "Hello " == value[0].nodes[0].data
         assert  "name" == value[0].nodes[1].name
@@ -43,6 +54,13 @@ def test_get_description_value():
                                      "), "+\
                               "TemplateData(data=u'!')])"
     assert body_string ==str(ast.body[0])
+    #field, value = ast.iter_fields()
+    for field, value in ast.iter_fields():
+        assert "body" == field
+        assert  "Hello " == value[0].nodes[0].data
+        assert  "default" == value[0].nodes[1].name
+        assert  "name" == value[0].nodes[1].node.name
+        assert  "!" == value[0].nodes[2].data
 
 def test_pipe_default_descripion_filters():
     ast = env.parse("Hello {{ name | default ('Mundo') | description ('World in english') }}!")
